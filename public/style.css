@@ -1,0 +1,29 @@
+body{
+  padding-top:80px;
+  word-wrap:break-word;
+}
+img{
+  height: 200px;
+}
+
+.check-green{
+  color: green;
+  background-color: rgb(2, 127, 2); 
+}
+
+.check-regular{
+  color:black; 
+}
+
+
+
+
+
+
+/* .collectionContainer{
+  display: flexbox; 
+} */
+
+.form-select{
+  height: 2em;
+}
