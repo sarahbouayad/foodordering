@@ -3,8 +3,9 @@ var trash = document.getElementsByClassName("fa-trash-o");
 
 Array.from(square).forEach(function(element) {
       element.addEventListener('click', function(){
-        const squareIcon = this.dataset.square === "true"
 
+        const squareIcon = this.dataset.square === "true"
+        // debugger
         console.log(this.dataset)
         fetch('squareCheck', {
           method: 'put',

@@ -1,23 +1,30 @@
 body{
   padding-top:80px;
   word-wrap:break-word;
+  background-color: rgba(211, 211, 211, 0.146)
 }
-img{
-  height: 200px;
-}
-
-.check-green{
-  color: green;
-  background-color: rgb(2, 127, 2); 
+.cheesy{
+  height: auto; 
+  border-radius: 5%;
+  width: 27%;
 }
 
-.check-regular{
-  color:black; 
+.square-check{
+  font-size: 21px; 
 }
 
+.square-regular{
+  font-size: 21px;
+}
+.well{
+ display: none;
+}
 
-
-
+.fa-trash-o{
+  font-size: 21px;
+  color: rgb(138, 10, 10); 
+  float: right;
+}
 
 
 /* .collectionContainer{
@@ -26,4 +33,8 @@ img{
 
 .form-select{
   height: 2em;
+}
+
+.list-group-item{
+  list-style: none;
 }

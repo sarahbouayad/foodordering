@@ -1,206 +1,246 @@
 <!doctype html>
 <html>
+
 <head>
-    <title>Order Here</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://kit.fontawesome.com/43daf91e79.js" crossorigin="anonymous"></script>
+  <title>Order Here</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/43daf91e79.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
   <div class="container">
 
-      <div class="page-header text-center">
-          <h1>Order Here</h1>
-          <a href="/logout" class="btn btn-default btn-sm">Logout</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="nav-header">
+        <a class="navbar-brand font-weight-bold">Order Here</a>
       </div>
+      <div class="navbar-header" style="float: right">
+        <a href="/logout" class="btn btn-danger btn-md my-2 my-sm-0">Logout</a>
+      </div>
+    </nav>
 
-      <div class="row">
+  
 
-          <!-- LOCAL INFORMATION -->
-          <div class="col-sm-4">
-              <div class="well">
-                  <h3><span class="fa fa-user"></span> Local</h3>
+    <div class="row">
 
-                  <% if (user.local.email) { %>
-                      <p>
-                          <strong>id</strong>: <%= user._id %><br>
-                          <strong>email</strong>: <%= user.local.email %><br>
-                          <strong>password</strong>: <%= user.local.password %>
-                      </p>
+      <!-- LOCAL INFORMATION -->
+      <div class="">
+        <div class="well">
+          <h3><span class="fa fa-user"></span> Local</h3>
 
-                      <a href="/unlink/local" class="btn btn-default">Unlink</a>
-                  <% } else { %>
-                      <a href="/connect/local" class="btn btn-default">Connect Local</a>
-                  <% } %>
+          <% if (user.local.email) { %>
+            <p>
+              <strong>id</strong>: <%= user._id %><br>
+                <strong>email</strong>: <%= user.local.email %><br>
+                  <strong>password</strong>: <%= user.local.password %>
+            </p>
 
-              </div>
-          </div>
-
-           <!-- order information to display on DOM -->
-          <ul class="orderInformation">
-            <h3>Orders</h3>
-            <h5>Hit Complete When Order Is Fulfilled</h5>
-            <% for(var i=0; i <ingredients.length; i++) {%>
-            <li class="submittedOrder">
-              <span><%= ingredients[i].name %></span>
-              <span><%= ingredients[i].dropDown %></span>
-              <span><%= ingredients[i].address %></span>
-              <span><%= `Your Pizza: ${ingredients[i].sauceList}` %></span>
-              <span><%= `Meat: ${ingredients[i].meatList}` %></span>
-              <span><%= `Cheese: ${ingredients[i].cheeseList}` %></span>
-              <span><%= `Veggies: ${ingredients[i].veggieList}` %></span>
-              
-
-              <% if(ingredients[i].square === true) { %>
-                <span><i class="fa-solid fa-square-check square-check squareBox" data-checkbox="true" aria-hidden="true"></i></span>
-              <% } else { %>
-                <span><i class="fa-regular fa-square square-regular squareBox" data-checkbox="false" aria-hidden="true"></i></span>
+            <a href="/unlink/local" class="btn btn-default">Unlink</a>
+            <% } else { %>
+              <a href="/connect/local" class="btn btn-default">Connect Local</a>
               <% } %>
 
-              <span><i class="fa fa-trash-o" aria-hidden="true"></i></span>
+        </div>
+      </div>
+
+      <!-- order information to display on DOM -->
+      <div class="col-sm-6 float-right card height-2">
+        <ul class="orderInformation  list-group-flush">
+          <h3>Orders</h3>
+          <h5>Hit Complete When Order Is Fulfilled</h5>
+          <% for(var i=0; i <ingredients.length; i++) {%>
+            <li class="submittedOrder list-group-item ">
+              <span class="list-group-item">
+                <%= ingredients[i].name %>
+              </span>
+              <span class="list-group-item">
+                <%= ingredients[i].dropDown %>
+              </span>
+              <span class="list-group-item">
+                <%= ingredients[i].address %>
+              </span>
+              <span class="list-group-item">
+                <%= `Your Pizza: ${ingredients[i].sauceList}` %>
+              </span>
+              <span class="list-group-item">
+                <%= `Meat: ${ingredients[i].meatList}` %>
+              </span>
+              <span class="list-group-item">
+                <%= `Cheese: ${ingredients[i].cheeseList}` %>
+              </span>
+              <span class="list-group-item">
+                <%= `Veggies: ${ingredients[i].veggieList}` %>
+              </span>
+              <br>
+              <% if(ingredients[i].square===true) { %>
+                <span><i class="fa-solid fa-square-check square-check squareBox" data-square="true"
+                    aria-hidden="true"></i></span>
+                <% } else { %>
+                  <span><i class="fa-regular fa-square square-regular squareBox" data-square="false"
+                      aria-hidden="true"></i></span>
+                  <% } %>
+
+                    <span><i class="fa fa-trash-o" aria-hidden="true"></i></span>
             </li>
             <% } %>
-          </ul>
-
-          
-          
-          <div class="col-sm-8">
-            <h3>Pizza Express: Ordering</h3>
+        </ul>
+      </div>
+      <div class="col-sm-8">
+        <h3>Pizza Express: Ordering</h3>
 
 
-            <% if (user.local.email) { %>
-              <!-- POST request /messages api -->
-            <form class="" action="/messages" method="POST">
-              <input type="text" value="<%= user.local.email %>" name="name" required>
-              <input type="text" placeholder="Address" value="" name="address" required>
-              <input type="number" placeholder="Phone Number" name="phoneNumber" required>
-              <select name="dropDown" class="form-select" aria-label="Default select example" placeholder="methodOfOrder">
-                <option name="dropDown" value="Pick Up">Pick Up</option>
-                <option name="dropDown" value="Delivery">Delivery</option>
-              </select>
-              <button type="submit">Submit</button>
-              <div class="row">
+        <% if (user.local.email) { %>
+          <!-- POST request /messages api -->
+          <form class="" action="/messages" method="POST">
+            <input type="text" value="<%= user.local.email %>" name="name" required>
+            <input type="text" placeholder="Address" value="" name="address" required>
+            <input type="number" placeholder="Phone Number" name="phoneNumber" required>
+            <select name="dropDown" class="form-select" aria-label="Default select example" placeholder="methodOfOrder">
+              <option name="dropDown" value="Pick Up">Pick Up</option>
+              <option name="dropDown" value="Delivery">Delivery</option>
+            </select>
+            <button type="submit">Submit</button>
+            <div class="row">
 
 
-                <!-- container for sauce category -->
-                <div class="col collectionContainer">
-                  <h4>Base Sauce</h4>
-                      <ul class="list-group list-group-light">
-                        <li class="list-group-item sauce-list">
-                          <input class="form-check-input" type="checkbox" name="sauceList" value="Red Sauce" id="checkboxExample1" />
-                          <label class="form-check-label" for="checkboxExample1">Red Sauce</label>
-                        </li>
-                        <li class="list-group-item">
-                          <input class="form-check-input" type="checkbox" name="sauceList" value="White Sauce" id="checkboxExample1" />
-                          <label class="form-check-label" for="checkboxExample1">White Sauce</label>
-                        </li>
-                      </ul>
-               </div>
-    
-                <!-- container for meat category -->
-    
-                  <div class="collectionContainer">
-                    <h4>Meat</h4>
-                    <ul class="list-group list-group-light">
-                      <li class="list-group-item meat-list" name="meatList" >
-                        <input class="form-check-input" type="checkbox" name="meatList" value="Turkey Bacon" id="checkboxExample1" />
-                        <label class="form-check-label" for="checkboxExample2">Turkey Bacon</label>
-                      </li>
-                      <li class="list-group-item meat-list">
-                        <input class="form-check-input" type="checkbox" name="meatList" value="Beef Sausage" id="checkboxExample1" />
-                        <label class="form-check-label" for="checkboxExample2">Beef Sausage</label>
-                      </li>
-                      <li class="list-group-item meat-list">
-                        <input class="form-check-input" type="checkbox" name="meatList" value="Beef Pepperoni" id="checkboxExample1" />
-                        <label class="form-check-label" for="checkboxExample2">Beef Pepperoni</label>
-                      </li>
-                      <li class="list-group-item meat-list">
-                        <input class="form-check-input" type="checkbox" name="meatList" value="Buffalo Chicken" id="checkboxExample1" />
-                        <label class="form-check-label" for="checkboxExample2">Buffalo Chicken</label>
-                      </li>
-                      <li class="list-group-item meat-list">
-                        <input class="form-check-input" type="checkbox" name="meatList" value="Seafood Blend" id="checkboxExample1" />
-                        <label class="form-check-label" for="checkboxExample2">Seafood Blend</label>
-                      </li>
-                    </ul>
-                  </div>
-    
-    
-                <!-- container for cheese category -->
-                  <div class="col collectionContainer">
-                    <h4>Cheese</h4>
-                    <ul class="list-group list-group-light cheeseList">
-                      <li class="list-group-item">
-                        <input class="form-check-input" type="checkbox" name="cheeseList" value="Mozzerella Cheese" id="checkboxExample1" />
-                        <label class="form-check-label" for="checkboxExample3">Mozzerella Cheese</label>
-                      </li>
-                      <li class="list-group-item">
-                        <input class="form-check-input" type="checkbox" name="cheeseList" value="Parmesan Cheese" id="checkboxExample1" />
-                        <label class="form-check-label" for="checkboxExample3">Parmesan Cheese</label>
-                      </li>
-                      <li class="list-group-item">
-                        <input class="form-check-input" type="checkbox" name="cheeseList" value="Gouda Cheese" id="checkboxExample1" />
-                        <label class="form-check-label" for="checkboxExample3">Gouda</label>
-                      </li>
-                      <li class="list-group-item">
-                        <input class="form-check-input" type="checkbox" name="cheeseList" value="Ricotta Cheese" id="checkboxExample1" />
-                        <label class="form-check-label" for="checkboxExample3">Ricotta Cheese</label>
-                      </li>
-                    </ul>
-    
-                  
-                   
-                  </div>
-    
-    
-                  <!-- container for veggies category -->
-    
-                  <div class="col collectionContainer">
-                    <h4>Veggies</h4>
-                    <ul class="list-group list-group-light veggieList">
-                      <li class="list-group-item">
-                        <input class="form-check-input" type="checkbox" name="veggieList" value="Olives" id="checkboxExample1" />
-                        <label class="form-check-label" for="checkboxExample4">Olives</label>
-                      </li>
-                      <li class="list-group-item">
-                        <input class="form-check-input" type="checkbox" name="veggieList" value="Onions" id="checkboxExample1" />
-                        <label class="form-check-label" for="checkboxExample4">Onions</label>
-                      </li>
-                      <li class="list-group-item">
-                        <input class="form-check-input" type="checkbox" name="veggieList" value="Spinach" id="checkboxExample1" />
-                        <label class="form-check-label" for="checkboxExample4">Spinach</label>
-                      </li>
-                      <li class="list-group-item">
-                        <input class="form-check-input" type="checkbox" name="veggieList" value="Tomatoes" id="checkboxExample1" />
-                        <label class="form-check-label" for="checkboxExample4">Tomatoes</label>
-                      </li>
-                      <li class="list-group-item">
-                        <input class="form-check-input" type="checkbox" name="veggieList" value="Fresh Herbs" id="checkboxExample1" />
-                        <label class="form-check-label" for="checkboxExample4">Fresh Herbs</label>
-                      </li>
-                      <li class="list-group-item">
-                        <input class="form-check-input" type="checkbox" name="veggieList" value="Garlic" id="checkboxExample1" />
-                        <label class="form-check-label" for="checkboxExample4">Garlic</label>
-                      </li>
-                    </ul>
-                   
-                
-                  </div>  
-                </div>
-            </form>
-          </div>
-          
+              <!-- container for sauce category -->
+              <div class="col collectionContainer">
+                <h4>Base Sauce</h4>
+                <ul class="list-group list-group-light">
+                  <li class="list-group-item sauce-list">
+                    <input class="form-check-input" type="checkbox" name="sauceList" value="Red Sauce"
+                      id="checkboxExample1" />
+                    <label class="form-check-label" for="checkboxExample1">Red Sauce</label>
+                  </li>
+                  <li class="list-group-item">
+                    <input class="form-check-input" type="checkbox" name="sauceList" value="White Sauce"
+                      id="checkboxExample1" />
+                    <label class="form-check-label" for="checkboxExample1">White Sauce</label>
+                  </li>
+                </ul>
+              </div>
 
+              <!-- container for meat category -->
+
+              <div class="collectionContainer">
+                <h4 >Meat</h4>
+                <ul class="list-group list-group-light">
+                  <li class="list-group-item meat-list" name="meatList">
+                    <input class="form-check-input" type="checkbox" name="meatList" value="Turkey Bacon"
+                      id="checkboxExample1" />
+                    <label class="form-check-label" for="checkboxExample2">Turkey Bacon</label>
+                  </li>
+                  <li class="list-group-item meat-list">
+                    <input class="form-check-input" type="checkbox" name="meatList" value="Beef Sausage"
+                      id="checkboxExample1" />
+                    <label class="form-check-label" for="checkboxExample2">Beef Sausage</label>
+                  </li>
+                  <li class="list-group-item meat-list">
+                    <input class="form-check-input" type="checkbox" name="meatList" value="Beef Pepperoni"
+                      id="checkboxExample1" />
+                    <label class="form-check-label" for="checkboxExample2">Beef Pepperoni</label>
+                  </li>
+                  <li class="list-group-item meat-list">
+                    <input class="form-check-input" type="checkbox" name="meatList" value="Buffalo Chicken"
+                      id="checkboxExample1" />
+                    <label class="form-check-label" for="checkboxExample2">Buffalo Chicken</label>
+                  </li>
+                  <li class="list-group-item meat-list">
+                    <input class="form-check-input" type="checkbox" name="meatList" value="Seafood Blend"
+                      id="checkboxExample1" />
+                    <label class="form-check-label" for="checkboxExample2">Seafood Blend</label>
+                  </li>
+                </ul>
+              </div>
+
+
+              <!-- container for cheese category -->
+              <div class="col collectionContainer">
+                <h4>Cheese</h4>
+                <ul class="list-group list-group-light cheeseList">
+                  <li class="list-group-item">
+                    <input class="form-check-input" type="checkbox" name="cheeseList" value="Mozzerella Cheese"
+                      id="checkboxExample1" />
+                    <label class="form-check-label" for="checkboxExample3">Mozzerella Cheese</label>
+                  </li>
+                  <li class="list-group-item">
+                    <input class="form-check-input" type="checkbox" name="cheeseList" value="Parmesan Cheese"
+                      id="checkboxExample1" />
+                    <label class="form-check-label" for="checkboxExample3">Parmesan Cheese</label>
+                  </li>
+                  <li class="list-group-item">
+                    <input class="form-check-input" type="checkbox" name="cheeseList" value="Gouda Cheese"
+                      id="checkboxExample1" />
+                    <label class="form-check-label" for="checkboxExample3">Gouda</label>
+                  </li>
+                  <li class="list-group-item">
+                    <input class="form-check-input" type="checkbox" name="cheeseList" value="Ricotta Cheese"
+                      id="checkboxExample1" />
+                    <label class="form-check-label" for="checkboxExample3">Ricotta Cheese</label>
+                  </li>
+                </ul>
+
+
+
+              </div>
+
+
+              <!-- container for veggies category -->
+
+              <div class="col collectionContainer">
+                <h4>Veggies</h4>
+                <ul class="list-group list-group-light veggieList">
+                  <li class="list-group-item">
+                    <input class="form-check-input" type="checkbox" name="veggieList" value="Olives"
+                      id="checkboxExample1" />
+                    <label class="form-check-label" for="checkboxExample4">Olives</label>
+                  </li>
+                  <li class="list-group-item">
+                    <input class="form-check-input" type="checkbox" name="veggieList" value="Onions"
+                      id="checkboxExample1" />
+                    <label class="form-check-label" for="checkboxExample4">Onions</label>
+                  </li>
+                  <li class="list-group-item">
+                    <input class="form-check-input" type="checkbox" name="veggieList" value="Spinach"
+                      id="checkboxExample1" />
+                    <label class="form-check-label" for="checkboxExample4">Spinach</label>
+                  </li>
+                  <li class="list-group-item">
+                    <input class="form-check-input" type="checkbox" name="veggieList" value="Tomatoes"
+                      id="checkboxExample1" />
+                    <label class="form-check-label" for="checkboxExample4">Tomatoes</label>
+                  </li>
+                  <li class="list-group-item">
+                    <input class="form-check-input" type="checkbox" name="veggieList" value="Fresh Herbs"
+                      id="checkboxExample1" />
+                    <label class="form-check-label" for="checkboxExample4">Fresh Herbs</label>
+                  </li>
+                  <li class="list-group-item">
+                    <input class="form-check-input" type="checkbox" name="veggieList" value="Garlic"
+                      id="checkboxExample1" />
+                    <label class="form-check-label" for="checkboxExample4">Garlic</label>
+                  </li>
+                </ul>
+
+
+              </div>
+            </div>
+          </form>
       </div>
 
 
+    </div>
 
 
-      <% } %>
+
+
+    <% } %>
   </div>
 
-<script src="main.js"></script>
+  <script src="main.js"></script>
 
 </body>
+
 </html>
