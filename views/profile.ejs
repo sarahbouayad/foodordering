@@ -11,7 +11,6 @@
 
 <body>
   <div class="container">
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="nav-header">
         <a class="navbar-brand font-weight-bold">Order Here</a>
@@ -44,10 +43,11 @@
 
         </div>
       </div>
-
       <!-- order information to display on DOM -->
+      <div class="p-5 bg-image" style="background-image: url('img/giphy3.gif'); height: 250px; background-position: 15%;background-size: contain;">
+      </div>
       <div class="col-sm-6 float-right card height-2">
-        <ul class="orderInformation  list-group-flush">
+        <ul class="orderInformation list-group-flush">
           <h3>Orders</h3>
           <h5>Hit Complete When Order Is Fulfilled</h5>
           <% for(var i=0; i <ingredients.length; i++) {%>
